@@ -132,6 +132,6 @@ echo '####################' >> /var/log/webcamd.log
 echo '####################' >> /var/log/webcamd.log
 echo '####################' >> /var/log/webcamd.log
 reboot and what comes after those lines is current.
-There are 2 things I found most important. Is there an entry for each configured camera, and is the mjpeg-streamer line correct. If camera enteries are missing, there is an error in the webcam[0-9]d script file, and if the mjpg-streamer file has the wrong device filename it is likely that the target-camera variable value is wrong.
+There are 2 things I found most important. Is there an entry for each configured camera, and is the mjpeg-streamer line correct. If camera enteries are missing, there is an error in the webcam[0-9]d script file, and if the mjpg-streamer file has the wrong device filename it is likely that the target-camera variable value is wrong. Keep in mind that camera number 2 should be webcam2 and that number should increment for each additional camera. Also, the port number for webcam2 should be 8081 and that number should also increment for each addional camera.
 If the script is right and the variable is right then you need to refresh the page (F5) or reboot the system.
 
