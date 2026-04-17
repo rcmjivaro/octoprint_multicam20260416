@@ -123,3 +123,15 @@ The end.
 Nowthen. 
 The USB bus on a raspberry pi has limited bandwidth. Be sure to not push it or it can affect your prints.
 If you have more cameras to configure, follow all of the above direcctions that apply to webcam2 but change the 2 to a 3 and on and on.
+
+### troubleshooting ###
+/var/log/webcamd.log is key.
+Unfortunately it doesn't have timestamps so it's not possible to tell when the current enteries were recorded so to make it clear do this:
+echo '####################' >> /var/log/webcamd.log
+echo '####################' >> /var/log/webcamd.log
+echo '####################' >> /var/log/webcamd.log
+echo '####################' >> /var/log/webcamd.log
+reboot and what comes after those lines is current.
+There are 2 things I found most important. Is there an entry for each configured camera, and is the mjpeg-streamer line correct. If camera enteries are missing, there is an error in the webcam[0-9]d script file, and if the mjpg-streamer file has the wrong device filename it is likely that the target-camera variable value is wrong.
+If the script is right and the variable is right then you need to refresh the page (F5) or reboot the system.
+
