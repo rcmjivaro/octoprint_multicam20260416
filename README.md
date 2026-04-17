@@ -1,11 +1,12 @@
 # octoprint_multicam20260416
 configure the multicam plugin to work properly
 #
+Before you begin, read all of this to the end before doing anything. If you are unsure about some of it, fear not. When you're doing it and you get to that point it might be easier than it seemed during the first run through.
 I had nothing but problems with multicam. Camera 2 not showing up, showing the image from the primary camera, working now but not later. That quallifies as non-functional in my book. In looking through the code I decided that they had done half the work to make multiple cameras function if you have their knowledge and are sitting in a lab and don't reboot too many times. Not good enough.
 
-I added a variable to the *.txt files that is the entire or at least partial name given to the target camera in /dev/v4l/by-id and then 3 lines of code that extract the target /dev/video[0-9] name associated with that target camera name (the content of /dev/v4l/by-id is links that redirect to a /dev/video[0-9] device file). Now, each time the system boots, and starts the cameras, it detects and uses the current device name for the target camera and it just works. If you unplug/replug/plug-in one of your cameras just run systemctl start(or restart) webcam[0-9]d and voila! multicams! 
+I added a variable to the *.txt files that is the entire or at least partial name given to the target camera in /dev/v4l/by-id and then 3 lines of code that extract the target /dev/video[0-9] name associated with that target camera name (the content of /dev/v4l/by-id is links that redirect to a /dev/video[0-9] device file). Now, each time the system boots, and starts the cameras, it detects and uses the current device name (which can and does change) for the target camera and it just works. If you unplug/replug/plug-in one of your cameras just run systemctl start(or restart) webcam[0-9]d and voila! multicams! 
 
-I thought about scripting this setup but I'm retired now. I got what I need out of it and with the lack of functional info out there this should be good help and will also familiarize you with how the system works. It would also require a number of bash tricks I barely remember how to do and some fancy commands with sed. It will be a lot less work to paste my notes for ye and go sip some irish whiskey. I think I'll just do that.
+I thought about scripting this setup but I'm retired now. I got what I need out of it and with the lack of functional info out there this should be good help and will also familiarize you with the system architecture. It would also require a number of bash tricks I barely remember how to do and some fancy commands with sed. It will be a lot less work to paste my notes for ye and go sip some irish whiskey. I think I'll just do that.
 Here you go.
 
 ##################
@@ -122,9 +123,10 @@ The end.
 
 Nowthen. 
 The USB bus on a raspberry pi has limited bandwidth. Be sure to not push it or it can affect your prints.
+The pi can supply limited power to the USB ports. It would be best to use a powered USB hub for your cameras.
 If you have more cameras to configure, follow all of the above direcctions that apply to webcam2 but change the 2 to a 3 and on and on.
 
-### troubleshooting ###
+### Troubleshooting ###
 /var/log/webcamd.log is key.
 Unfortunately it doesn't have timestamps so it's not possible to tell when the current enteries were recorded so to make it clear do this:
 echo '####################' >> /var/log/webcamd.log
